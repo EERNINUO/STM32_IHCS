@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.cpp": "cpp",
+        "dht11.h": "c",
+        "stm32f10x.h": "c",
+        "serious.h": "c",
+        "delay.h": "c",
+        "jq01.h": "c"
+    }
+}
