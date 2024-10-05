@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
-import time
-from multiprocessing import Process, Event
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
-class Paint():
-    def __init__(self) -> None:
+class Paint(FigureCanvas):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
         self.fix, self.ax1 = plt.subplots()
         self.legend_flag = 0
+        self.setparent(parent)
         plt.rcParams["font.sans-serif"] = ["SimHei"]
         plt.rcParams["axes.unicode_minus"] = False
         plt.xlabel("时间(t)")
@@ -16,7 +17,6 @@ class Paint():
         plt.ylabel("湿度(%)")
         plt.ylim(0,100)
         plt.ion()
-        plt.show()
 
     def draw(self, x, y1, y2):
         self.ax1.plot(x, y1, color= 'r', linestyle= '-', label= '温度')
@@ -26,6 +26,8 @@ class Paint():
             self.ax1.legend(bbox_to_anchor= (1, 1))
             self.ax2.legend(bbox_to_anchor= (1, 0.9))
             self.legend_flag += 1
+        plt.show()
 
     def end_draw(self):
         plt.close("all")
+

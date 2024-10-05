@@ -7,15 +7,15 @@
 
 import sys
 import serial
-from PyQt6.QtWidgets import QWidget, QApplication, QMessageBox
+from PyQt6.QtWidgets import QWidget, QApplication, QMessageBox, QMainWindow
 from PyQt6.QtCore import pyqtSignal
-from Ui_UI_v1 import Ui_Form
+from Ui_UI_v2 import Ui_MainWindow
 import data
-import draw
+import drawWidget
 
 open_Serial:serial.Serial
 data_thread:data.Data
-paint:draw.Paint
+paint:drawWidget.DrawWidget
 
 def get_serial():
     ports_list = list(serial.tools.list_ports.comports())
@@ -58,7 +58,6 @@ def TemOpen_clicked(): # 温度波形显示按钮
     global data_thread
     if(ui.TemOpen.text() == "打开波形显示"):
         ui.TemOpen.setText("关闭波形显示")
-        paint = draw.Paint()
         data_thread.paint_draw.connect(drawing)
         data_thread.draw_flag = True
     else: 
@@ -83,13 +82,25 @@ def create_QMessageBox():
     QMessageBox.warning(None, '警告', '可燃气体含量超标',
                     QMessageBox.StandardButton.Ok)
 
+# if __name__ == "__main__":
+#     ui = Ui_Form()
+#     app = QApplication(sys.argv)
+#     window = QWidget()
+#     ui.setupUi(window)
+
+#     get_serial()
+#     QtEvent()
+#     window.show()
+#     sys.exit(app.exec())
+
 if __name__ == "__main__":
-    ui = Ui_Form()
+    ui = Ui_MainWindow()
     app = QApplication(sys.argv)
-    window = QWidget()
+    window = QMainWindow()
     ui.setupUi(window)
 
     get_serial()
     QtEvent()
+
     window.show()
     sys.exit(app.exec())

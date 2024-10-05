@@ -65,7 +65,7 @@ void Serial_send_ushort(uint16_t dat){
 }
 
 void Serial_send_arr(uint8_t *dat){
-    for (uint8_t i = 0; i<4; i++){
+    for (uint8_t i = 0; i<6; i++){
         USART_SendData(USART1,dat[i]);
         while (USART_GetFlagStatus (USART1, USART_FLAG_TXE) == RESET);
     }

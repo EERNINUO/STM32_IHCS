@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\User;.\Start;.\Library;.\System\Delay;.\Hardware\Serious;.\Hardware\OLED;.\Hardware\DHT11;.\Hardware\JQ01</IncludePath>
+              <IncludePath>.\User;.\Start;.\Library;.\System\Delay;.\Hardware\Serious;.\Hardware\OLED;.\Hardware\DHT11;.\Hardware\JQ01;.\Hardware\PRC905;.\System\Timer</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -694,6 +694,11 @@
               <FileType>1</FileType>
               <FilePath>.\Hardware\JQ01\JQ01.c</FilePath>
             </File>
+            <File>
+              <FileName>PRC905.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\PRC905\PRC905.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -703,6 +708,11 @@
               <FileName>Delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\System\Delay\Delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\System\Timer\timer.c</FilePath>
             </File>
           </Files>
         </Group>

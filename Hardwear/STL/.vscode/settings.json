@@ -5,6 +5,7 @@
         "stm32f10x.h": "c",
         "serious.h": "c",
         "delay.h": "c",
-        "jq01.h": "c"
+        "jq01.h": "c",
+        "timer.h": "c"
     }
 }

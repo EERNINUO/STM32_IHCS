@@ -11,4 +11,5 @@
   Library\stm32f10x_sdio.h Library\stm32f10x_spi.h \
   Library\stm32f10x_tim.h Library\stm32f10x_usart.h \
   Library\stm32f10x_wwdg.h Library\misc.h Hardware\DHT11\DHT11.h \
-  System\Delay\Delay.h Hardware\Serious\Serious.h Hardware\JQ01\JQ01.h
+  System\Delay\Delay.h Hardware\Serious\Serious.h Hardware\JQ01\JQ01.h \
+  Hardware\PRC905\PRC905.h Hardware\OLED\OLED.h System\Timer\timer.h
