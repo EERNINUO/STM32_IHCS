@@ -7,15 +7,13 @@
 
 import sys
 import serial
-from PyQt6.QtWidgets import QWidget, QApplication, QMessageBox
+from PyQt6.QtWidgets import QWidget, QApplication, QMessageBox, QMainWindow
 from PyQt6.QtCore import pyqtSignal
-from Ui_UI_v1 import Ui_Form
+from Ui_UI_v2 import Ui_MainWindow
 import data
-import draw
 
 open_Serial:serial.Serial
 data_thread:data.Data
-paint:draw.Paint
 
 def get_serial():
     ports_list = list(serial.tools.list_ports.comports())
@@ -25,8 +23,7 @@ def get_serial():
 def ComCtrl_clicked(): # 打开串口按钮
     if(ui.ComCtrl.text() == "打开串口"):
         global open_Serial # 被打开的串口
-        global data_thread #新的线程
-        global paint
+        global data_thread #新的线6程
         try:
             # 打开一个串口
             open_Serial = serial.Serial(ui.ComList.currentText(), 
@@ -50,29 +47,18 @@ def ComCtrl_clicked(): # 打开串口按钮
         data_thread.exit()   # 退出线程
         open_Serial.close()  # 关闭串口
 
-def drawing():
-    paint.draw(data_thread.time, data_thread.tem, data_thread.wet)
-
 def TemOpen_clicked(): # 温度波形显示按钮
-    global paint
     global data_thread
     if(ui.TemOpen.text() == "打开波形显示"):
         ui.TemOpen.setText("关闭波形显示")
-        paint = draw.Paint()
-        data_thread.paint_draw.connect(drawing)
-        data_thread.draw_flag = True
     else: 
         ui.TemOpen.setText("打开波形显示")
-        data_thread.draw_flag = False
-        paint.end_draw()
 
 def TemCtrl_clicked():      # 
     if(ui.TemCtrl.text() == "暂停波形显示"):
         ui.TemCtrl.setText("继续波形显示")
-        data_thread.draw_flag = False
     else:
         ui.TemCtrl.setText("暂停波形显示")
-        data_thread.draw_flag = True
 
 def QtEvent():
     ui.ComCtrl.clicked.connect(ComCtrl_clicked) # type: ignore
@@ -83,13 +69,25 @@ def create_QMessageBox():
     QMessageBox.warning(None, '警告', '可燃气体含量超标',
                     QMessageBox.StandardButton.Ok)
 
+# if __name__ == "__main__":
+#     ui = Ui_Form()
+#     app = QApplication(sys.argv)
+#     window = QWidget()
+#     ui.setupUi(window)
+
+#     get_serial()
+#     QtEvent()
+#     window.show()
+#     sys.exit(app.exec())
+
 if __name__ == "__main__":
-    ui = Ui_Form()
+    ui = Ui_MainWindow()
     app = QApplication(sys.argv)
-    window = QWidget()
+    window = QMainWindow()
     ui.setupUi(window)
 
     get_serial()
     QtEvent()
+
     window.show()
     sys.exit(app.exec())

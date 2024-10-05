@@ -1,13 +1,23 @@
 import matplotlib.pyplot as plt
-import time
-from multiprocessing import Process, Event
+from matplotlib.backends.backend_qtagg import (FigureCanvasQTAgg as
+            FigureCanvas, NavigationToolbar2QT as NavigationToolbar)
+from PyQt6.QtWidgets import QSizePolicy
 
-class Paint():
-    def __init__(self) -> None:
-        self.fix, self.ax1 = plt.subplots()
+class Paint(FigureCanvas):
+    def __init__(self, parent=None) -> None:
+        plt.rcParams['font.family'] = ['SimHei']  # 用来正常显示中文标签
+        plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+
+        self.fig, self.ax1 = plt.subplots()
+        FigureCanvas.__init__(self, self.fig)
+        self.setParent(parent)
+
+        FigureCanvas.setSizePolicy(self,
+                                   QSizePolicy.Policy.Expanding,
+                                   QSizePolicy.Policy.Expanding)
+        FigureCanvas.updateGeometry(self)
+
         self.legend_flag = 0
-        plt.rcParams["font.sans-serif"] = ["SimHei"]
-        plt.rcParams["axes.unicode_minus"] = False
         plt.xlabel("时间(t)")
         plt.ylabel("温度(℃)")
         plt.xlim(0,60)
@@ -16,9 +26,8 @@ class Paint():
         plt.ylabel("湿度(%)")
         plt.ylim(0,100)
         plt.ion()
-        plt.show()
 
-    def draw(self, x, y1, y2):
+    def my_draw(self, x, y1, y2):
         self.ax1.plot(x, y1, color= 'r', linestyle= '-', label= '温度')
         plt.grid(color='0.2', linestyle= '--')
         self.ax2.plot(x, y2, color= 'b', linestyle= '--', label= '湿度')
@@ -29,3 +38,4 @@ class Paint():
 
     def end_draw(self):
         plt.close("all")
+

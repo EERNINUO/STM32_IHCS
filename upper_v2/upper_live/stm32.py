@@ -2,11 +2,11 @@ import struct
 import serial
 import serial.tools.list_ports
 
-def read_data(com:serial.Serial): 
-    input_dat = com.read(4)
-    if input_dat != b'' and len(input_dat) == 4:
-        re_dat = struct.unpack('I',input_dat)
-        return re_dat[0]
+def read_data(com:serial.Serial) -> tuple: 
+    input_dat = com.read(6)
+    if input_dat != b'' and len(input_dat) == 6: # 防止输入错误数据
+        re_dat = struct.unpack('BBBBH',input_dat)
+        return re_dat
     else: 
         return "NULL"
 
@@ -16,18 +16,11 @@ def trans_data(com:serial.Serial) -> tuple:
     re_tem = 0
     if get_dat == "NULL":
         re_tem = "NULL"
-    elif get_dat == 2863311530 : # 0xAA * 4
+    elif get_dat == (170, 170, 170, 170, 43690) : # 0xAA * 4
         re_tem ="warning"
-    elif get_dat == 3149642683 : # 0xBB * 4
+    elif get_dat == (187, 187, 187, 187, 48059) : # 0xBB * 4
         re_tem ="end_warning"
     else:
-        re_wet_int = get_dat % 256
-        get_dat >>= 8
-        re_wet_flt = get_dat % 256
-        get_dat >>= 8
-        re_tem_int = get_dat % 256
-        get_dat >>= 8
-        re_tem_flt = get_dat
-        re_tem = re_tem_int + re_tem_flt * 0.1
-        re_wet = re_wet_int + re_wet_flt * 0.1
+        re_tem = get_dat[2] + get_dat[3] * 0.1
+        re_wet = get_dat[0] + get_dat[1] * 0.1
     return re_tem, re_wet
