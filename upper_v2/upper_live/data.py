@@ -24,10 +24,10 @@ class Data(QThread):    # 用于接受数据的新线程
                     if tem == 'NULL':
                         continue
                     elif tem == 'warning':
-                        self.ui.GasLine.setText("含量超标")
+                        # self.ui.GasLine.setText("含量超标")
                         self.warning.emit()     # 信号广播
-                    elif tem == 'end_warning':
-                        self.ui.GasLine.setText("正常")
+                    # elif tem == 'end_warning':
+                    #     self.ui.GasLine.setText("正常")
                 else:       # 存储正常数据
                     self.tem.append(tem)
                     self.wet.append(wet)

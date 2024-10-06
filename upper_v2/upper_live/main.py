@@ -23,7 +23,7 @@ def get_serial():
 def ComCtrl_clicked(): # 打开串口按钮
     if(ui.ComCtrl.text() == "打开串口"):
         global open_Serial # 被打开的串口
-        global data_thread #新的线6程
+        global data_thread #新的线程
         try:
             # 打开一个串口
             open_Serial = serial.Serial(ui.ComList.currentText(), 
@@ -50,14 +50,18 @@ def ComCtrl_clicked(): # 打开串口按钮
 def TemOpen_clicked(): # 温度波形显示按钮
     global data_thread
     if(ui.TemOpen.text() == "打开波形显示"):
+        ui.widget.paint.start_my_draw(data_thread)
         ui.TemOpen.setText("关闭波形显示")
     else: 
+        ui.widget.paint.end_draw()
         ui.TemOpen.setText("打开波形显示")
 
 def TemCtrl_clicked():      # 
     if(ui.TemCtrl.text() == "暂停波形显示"):
+        ui.widget.paint.timer.stop()
         ui.TemCtrl.setText("继续波形显示")
     else:
+        ui.widget.paint.timer.start(100)
         ui.TemCtrl.setText("暂停波形显示")
 
 def QtEvent():
@@ -68,17 +72,6 @@ def QtEvent():
 def create_QMessageBox():
     QMessageBox.warning(None, '警告', '可燃气体含量超标',
                     QMessageBox.StandardButton.Ok)
-
-# if __name__ == "__main__":
-#     ui = Ui_Form()
-#     app = QApplication(sys.argv)
-#     window = QWidget()
-#     ui.setupUi(window)
-
-#     get_serial()
-#     QtEvent()
-#     window.show()
-#     sys.exit(app.exec())
 
 if __name__ == "__main__":
     ui = Ui_MainWindow()
