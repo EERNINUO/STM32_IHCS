@@ -32,7 +32,7 @@ def ComCtrl_clicked(): # 打开串口按钮
             data_thread = data.Data(open_Serial, ui)    # 创建读取数据的线程
             data_thread.start()     # 启动线程
             data_thread.warning.connect(create_QMessageBox)
-        
+            
         #检测错误输入
         except serial.serialutil.SerialException:
             QMessageBox.information(None, '', '请选择一个串口',
