@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>1054</width>
-    <height>667</height>
+    <height>692</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_5">
+   <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
@@ -53,7 +53,10 @@
               <bool>false</bool>
              </property>
              <property name="currentText">
-              <string>请选择</string>
+              <string>115200</string>
+             </property>
+             <property name="currentIndex">
+              <number>7</number>
              </property>
              <property name="maxVisibleItems">
               <number>16</number>
@@ -67,11 +70,6 @@
              <property name="duplicatesEnabled">
               <bool>false</bool>
              </property>
-             <item>
-              <property name="text">
-               <string>请选择</string>
-              </property>
-             </item>
              <item>
               <property name="text">
                <string>1200</string>
@@ -130,7 +128,7 @@
               <bool>false</bool>
              </property>
              <property name="currentText">
-              <string>请选择</string>
+              <string/>
              </property>
              <property name="maxVisibleItems">
               <number>16</number>
@@ -144,11 +142,6 @@
              <property name="duplicatesEnabled">
               <bool>false</bool>
              </property>
-             <item>
-              <property name="text">
-               <string>请选择</string>
-              </property>
-             </item>
             </widget>
            </item>
            <item row="2" column="0">
@@ -157,20 +150,15 @@
               <string>校验位</string>
              </property>
              <property name="buddy">
-              <cstring>comboBox</cstring>
+              <cstring>CaliBit</cstring>
              </property>
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QComboBox" name="comboBox">
+            <widget class="QComboBox" name="CaliBit">
              <item>
               <property name="text">
                <string>无校验</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>奇校验</string>
               </property>
              </item>
              <item>
@@ -180,12 +168,17 @@
              </item>
              <item>
               <property name="text">
-               <string>0校验</string>
+               <string>奇校验</string>
               </property>
              </item>
              <item>
               <property name="text">
                <string>1校验</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>0校验</string>
               </property>
              </item>
             </widget>
@@ -196,20 +189,33 @@
               <string>数据位(&amp;D)</string>
              </property>
              <property name="buddy">
-              <cstring>comboBox_2</cstring>
+              <cstring>DataBit</cstring>
              </property>
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QComboBox" name="comboBox_2">
+            <widget class="QComboBox" name="DataBit">
+             <property name="currentIndex">
+              <number>3</number>
+             </property>
              <item>
               <property name="text">
-               <string>8位</string>
+               <string>5位</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>9位</string>
+               <string>6位</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>7位</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>8位</string>
               </property>
              </item>
             </widget>
@@ -220,12 +226,12 @@
               <string>停止位(&amp;S)</string>
              </property>
              <property name="buddy">
-              <cstring>comboBox_3</cstring>
+              <cstring>StopBit</cstring>
              </property>
             </widget>
            </item>
            <item row="4" column="1">
-            <widget class="QComboBox" name="comboBox_3">
+            <widget class="QComboBox" name="StopBit">
              <item>
               <property name="text">
                <string>1 位</string>
@@ -251,44 +257,6 @@
             </widget>
            </item>
           </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2"/>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_2">
-        <property name="minimumSize">
-         <size>
-          <width>189</width>
-          <height>93</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>189</width>
-          <height>93</height>
-         </size>
-        </property>
-        <property name="title">
-         <string>绘图设置</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QPushButton" name="TemOpen">
-           <property name="text">
-            <string>打开波形显示</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="TemCtrl">
-           <property name="text">
-            <string>暂停波形显示</string>
-           </property>
-          </widget>
          </item>
         </layout>
        </widget>
@@ -321,9 +289,12 @@
              <string>采集间隔</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="intervalLine">
+            <property name="tabletTracking">
+             <bool>false</bool>
+            </property>
             <property name="text">
-             <string/>
+             <string>100</string>
             </property>
            </widget>
            <widget class="QLabel" name="label_7">
@@ -343,12 +314,16 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEdit_2"/>
+            <widget class="QLineEdit" name="sampling_time">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="collet_ctrl">
            <property name="text">
             <string>开始采集</string>
            </property>
@@ -358,43 +333,130 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout"/>
-      </item>
-      <item>
-       <spacer name="verticalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="minimumSize">
          <size>
-          <width>20</width>
-          <height>40</height>
+          <width>189</width>
+          <height>93</height>
          </size>
         </property>
-       </spacer>
+        <property name="maximumSize">
+         <size>
+          <width>189</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>绘图设置</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <layout class="QFormLayout" name="formLayout_3">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>刷新率</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="FPSLine">
+               <property name="text">
+                <string>10</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>fps</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="TemOpen">
+           <property name="text">
+            <string>打开波形显示</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="TemCtrl">
+           <property name="text">
+            <string>暂停波形显示</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="minimumSize">
-           <size>
-            <width>147</width>
-            <height>24</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>147</width>
-            <height>24</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>显示帮助</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="maximumSize">
+         <size>
+          <width>189</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>通道选择</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QCheckBox" name="channel1">
+           <property name="text">
+            <string>  通道1</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <property name="autoRepeat">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="channel2">
+           <property name="text">
+            <string>  通道2</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="channel3">
+           <property name="maximumSize">
+            <size>
+             <width>171</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>  通道3</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="tem_channel">
+           <property name="text">
+            <string>  温度</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="wet_channel">
+           <property name="text">
+            <string>  湿度</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item>
        <spacer name="verticalSpacer">
@@ -421,115 +483,6 @@
       </property>
      </widget>
     </item>
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayout_7">
-      <item>
-       <widget class="QGroupBox" name="groupBox_4">
-        <property name="minimumSize">
-         <size>
-          <width>169</width>
-          <height>119</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>169</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="title">
-         <string>文件设置</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
-          <widget class="QPushButton" name="pushButton_3">
-           <property name="text">
-            <string>保存文件</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_5">
-           <property name="text">
-            <string>文件另存为</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_4">
-           <property name="text">
-            <string>打开文件</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_5">
-        <property name="maximumSize">
-         <size>
-          <width>169</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="title">
-         <string>通道选择</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <widget class="QCheckBox" name="checkBox">
-           <property name="text">
-            <string>  通道1</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="checkBox_2">
-           <property name="text">
-            <string>  通道2</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="checkBox_3">
-           <property name="text">
-            <string>  通道3</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="checkBox_4">
-           <property name="text">
-            <string>  温度</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="checkBox_5">
-           <property name="text">
-            <string>  湿度</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <spacer name="verticalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -541,21 +494,21 @@
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="FileMenu">
     <property name="title">
      <string>文件</string>
     </property>
-    <addaction name="actionsave_2"/>
-    <addaction name="actionsave_in"/>
-    <addaction name="actionopen"/>
+    <addaction name="save"/>
+    <addaction name="save_as"/>
+    <addaction name="open"/>
    </widget>
-   <widget class="QMenu" name="menu_2">
+   <widget class="QMenu" name="help">
     <property name="title">
      <string>帮助</string>
     </property>
    </widget>
-   <addaction name="menu"/>
-   <addaction name="menu_2"/>
+   <addaction name="FileMenu"/>
+   <addaction name="help"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
@@ -567,17 +520,17 @@
     <string>保存</string>
    </property>
   </action>
-  <action name="actionsave_2">
+  <action name="save">
    <property name="text">
     <string>保存</string>
    </property>
   </action>
-  <action name="actionsave_in">
+  <action name="save_as">
    <property name="text">
     <string>另存为</string>
    </property>
   </action>
-  <action name="actionopen">
+  <action name="open">
    <property name="text">
     <string>打开</string>
    </property>

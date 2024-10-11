@@ -27,14 +27,14 @@ class Paint(FigureCanvas):
         plt.grid(color='0.2', linestyle= '--')
         plt.ion()
 
-    def start_my_draw(self, Dat_class: Data):
-        try :
+    def start_my_draw(self, FPS:int, Dat_class: Data):
+        # try :
             self.dat_class = Dat_class
             self.timer = QTimer(self)
-            self.timer.start(100)
+            self.timer.start(1000 // FPS)
             self.timer.timeout.connect(self.my_draw)
-        except TypeError:
-            pass
+        # except TypeError:
+        #     pass
 
     def my_draw(self):
         x = self.dat_class.time
