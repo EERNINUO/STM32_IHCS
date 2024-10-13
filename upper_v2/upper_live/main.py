@@ -22,7 +22,7 @@ if __name__ == "__main__":
     window = QMainWindow()
     ui.setupUi(window)
 
-    QTevent =  Connect(ui)
+    QTevent =  Connect(ui, window)
     get_serial()
 
     window.show()

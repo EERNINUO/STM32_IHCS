@@ -1,14 +1,17 @@
 from Ui_UI_v2 import Ui_MainWindow
 import serial.serialutil
 import data
-from PyQt6.QtWidgets import QMessageBox 
+from PyQt6.QtWidgets import QMessageBox, QFileDialog
 from stm32 import STM32
+from file import File
 
 class Connect():
-    def __init__(self, Ui: Ui_MainWindow) -> None:
+    def __init__(self, Ui: Ui_MainWindow, main_window) -> None:
         self.Ui = Ui
+        self.main_window = main_window
         self.open_serial: STM32 # 被打开的串口
         self.data_thread: data.Data #新的线程
+        self.file = File()
 
         self.Ui.ComCtrl.clicked.connect(self.ComCtrl_clicked)
         self.Ui.TemCtrl.clicked.connect(self.TemCtrl_clicked)
@@ -16,7 +19,6 @@ class Connect():
         self.Ui.collet_ctrl.clicked.connect(self.collet_ctrl)
 
         self.Ui.save.triggered.connect(self.save_file)
-        self.Ui.save_as.triggered.connect(self.save_file_as)
         self.Ui.open.triggered.connect(self.open_file)
 
     def ComCtrl_clicked(self): # 打开串口按钮
@@ -76,10 +78,18 @@ class Connect():
 
 
     def save_file(self):
-        pass
+        self.file.tran_data(self.data_thread)
+        try:
+            file = QFileDialog.getSaveFileName(self.main_window, "保存文件", "./", "csv(*.csv);;json(*.json);;xlsx(*.xlsx)")
+            if (file[1] == "csv(*.csv)"):
+                self.file.save_csv(file[0])
+            elif (file[1] == "json(*.json)"):
+                self.file.save_json(file[0])
+            elif (file[1] == "xlsx(*.xlsx)"):
+                self.file.save_excel(file[0])
 
-    def save_file_as(self):
-        pass
+        except PermissionError:
+            pass
 
     def open_file(self):
         pass

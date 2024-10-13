@@ -37,7 +37,7 @@ class Paint(FigureCanvas):
         #     pass
 
     def my_draw(self):
-        x = self.dat_class.time
+        x = self.dat_class.int_time
         y1 = self.dat_class.tem
         y2 = self.dat_class.wet
         self.ax1.plot(x, y1, color= 'r', linestyle= '-', label= '温度')

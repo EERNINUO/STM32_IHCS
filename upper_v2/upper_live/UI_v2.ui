@@ -499,7 +499,6 @@
      <string>文件</string>
     </property>
     <addaction name="save"/>
-    <addaction name="save_as"/>
     <addaction name="open"/>
    </widget>
    <widget class="QMenu" name="help">

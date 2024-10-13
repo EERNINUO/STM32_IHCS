@@ -203,7 +203,6 @@ class Ui_MainWindow(object):
         self.open = QtGui.QAction(parent=MainWindow)
         self.open.setObjectName("open")
         self.FileMenu.addAction(self.save)
-        self.FileMenu.addAction(self.save_as)
         self.FileMenu.addAction(self.open)
         self.menubar.addAction(self.FileMenu.menuAction())
         self.menubar.addAction(self.help.menuAction())

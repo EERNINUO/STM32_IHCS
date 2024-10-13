@@ -40,7 +40,10 @@ class STM32(Serial):
         else:
             re_tem = get_dat[2] + get_dat[3] * 0.1
             re_wet = get_dat[0] + get_dat[1] * 0.1
-        return re_tem, re_wet
+        channel1 = get_dat[4] / 4096
+        # channel2 = get_dat[5] / 4096
+        # channel3 = get_dat[6] / 4096
+        return re_tem, re_wet, channel1#, channel2, channel3
 
     def send_data(self, interval_time, channel):
         out_dat = struct.pack(">HB", interval_time, channel)
