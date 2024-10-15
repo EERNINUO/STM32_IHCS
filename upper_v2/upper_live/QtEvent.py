@@ -37,16 +37,19 @@ class Connect():
                                     QMessageBox.StandardButton.Ok)
 
         else:
+            if self.Ui.collet_ctrl.text() == "停止采集":
+                self.collet_ctrl()
             self.Ui.ComCtrl.setText("打开串口")
             self.open_serial.close()  # 关闭串口
 
     def TemOpen_clicked(self): # 波形显示按钮
         if(self.Ui.TemOpen.text() == "打开波形显示"):
             self.Ui.FPSLine.setReadOnly(True)
-            fps = int(self.Ui.FPSLine.text())
-            self.Ui.widget.paint.start_my_draw(fps, self.data_thread)
+            self.Ui.widget.paint.start_my_draw(self.Ui, self.data_thread)
             self.Ui.TemOpen.setText("关闭波形显示")
         else: 
+            if self.Ui.TemCtrl.text() == "暂停波形显示":
+                self.TemCtrl_clicked()
             self.Ui.widget.paint.end_draw()
             self.Ui.TemOpen.setText("打开波形显示")
             self.Ui.FPSLine.setReadOnly(False)
@@ -68,9 +71,11 @@ class Connect():
             self.data_thread.start()     # 启动线程
             self.data_thread.warning.connect(lambda: 
                         QMessageBox.warning(None, '警告', 
-                        '可燃气体含量超标',QMessageBox.StandardButton.Ok))
+                        '可燃气体含量超标', QMessageBox.StandardButton.Ok))
             self.Ui.collet_ctrl.setText("停止采集")
         else:
+            if self.Ui.TemOpen.text() == "关闭波形显示":
+                self.TemOpen_clicked()
             self.data_thread.open_flag = False
             self.data_thread.exit()   # 退出线程
             self.Ui.collet_ctrl.setText("开始采集")
@@ -78,8 +83,8 @@ class Connect():
 
 
     def save_file(self):
-        self.file.tran_data(self.data_thread)
         try:
+            self.file.tran_data(self.data_thread)
             file = QFileDialog.getSaveFileName(self.main_window, "保存文件", "./", "csv(*.csv);;json(*.json);;xlsx(*.xlsx)")
             if (file[1] == "csv(*.csv)"):
                 self.file.save_csv(file[0])
@@ -91,5 +96,13 @@ class Connect():
         except PermissionError:
             pass
 
+        except AttributeError:
+            QMessageBox.critical(None, "错误", "无可以保存的数据", QMessageBox.StandardButton.Ok)
+
     def open_file(self):
-        pass
+        try:
+            file = QFileDialog.getOpenFileName(self.main_window, "打开文件", "./", "csv(*.csv);;json(*.json);;xlsx(*.xlsx)")
+            self.file.open_file(file)
+            self.Ui.widget.paint.draw_open_file(self.file)
+        except PermissionError:
+            pass

@@ -22,7 +22,7 @@ class STM32(Serial):
     def read_data(self) -> tuple: 
         input_dat = self.read(6)
         if input_dat != b'' and len(input_dat) == 6: # 防止输入错误数据
-            re_dat = struct.unpack('BBBBH',input_dat)
+            re_dat = struct.unpack('BBBBHHH',input_dat)
             return re_dat
         else: 
             return "NULL"
@@ -31,6 +31,7 @@ class STM32(Serial):
         get_dat = self.read_data()
         re_wet = 0
         re_tem = 0
+        channel1 = 0
         if get_dat == "NULL":
             re_tem = "NULL"
         elif get_dat == (170, 170, 170, 170, 43690) : # 0xAA * 4
@@ -40,10 +41,10 @@ class STM32(Serial):
         else:
             re_tem = get_dat[2] + get_dat[3] * 0.1
             re_wet = get_dat[0] + get_dat[1] * 0.1
-        channel1 = get_dat[4] / 4096
-        # channel2 = get_dat[5] / 4096
-        # channel3 = get_dat[6] / 4096
-        return re_tem, re_wet, channel1#, channel2, channel3
+            channel1 = get_dat[4] / 4096 * 3.3
+            channel2 = get_dat[5] / 4096 * 3.3
+            channel3 = get_dat[6] / 4096 * 3.3
+        return re_tem, re_wet, channel1, channel2, channel3
 
     def send_data(self, interval_time, channel):
         out_dat = struct.pack(">HB", interval_time, channel)
