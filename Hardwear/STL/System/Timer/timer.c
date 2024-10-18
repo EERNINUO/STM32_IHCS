@@ -1,9 +1,10 @@
 #include "timer.h"
 
-uint8_t dat_arr[6];
+uint8_t dat_arr[10];
 
 void timer_init(){
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+
     TIM_TimeBaseInitTypeDef DHT11_tb_init;
     DHT11_tb_init.TIM_ClockDivision = TIM_CKD_DIV1;
     DHT11_tb_init.TIM_CounterMode = TIM_CounterMode_Up;
@@ -27,11 +28,11 @@ void timer_init(){
 
 void TIM2_IRQHandler(void){
     DHT11_read(dat_arr);
-    PRC905_read(dat_arr);
-    // DMA_reset();
-    // DMA_Cmd(DMA1_Channel4, DISABLE);
-    // DMA_SetCurrDataCounter(DMA1_Channel4, 4);
-    // DMA_Cmd(DMA1_Channel4, ENABLE);
+    ADC_SoftwareStartConvCmd(ADC1, ENABLE);
+    // while (ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
+    DMA_Cmd(DMA1_Channel4, DISABLE);
+    DMA_SetCurrDataCounter(DMA1_Channel4, 10);
+    DMA_Cmd(DMA1_Channel4, ENABLE);
     TIM_ClearITPendingBit(TIM2, TIM_IT_Update); 
-    Serial_send_arr(dat_arr);
+    // Serial_send_arr(dat_arr);
 }

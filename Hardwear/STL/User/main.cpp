@@ -22,11 +22,9 @@ int main(void){
 	Serial_init();
 	DHT11_Init();
 	JQ01_Init();
-	OLED_Init();
 	PRC905_init();
 	timer_init();
 	while(1){
-		uint16_t show_num = (dat_arr[5] << 8) + dat_arr[4] ;
-		OLED_ShowNum(1,1,show_num,4);
+		;
 	}
 }
