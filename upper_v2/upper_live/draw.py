@@ -58,13 +58,28 @@ class Paint(FigureCanvas):
     def draw_open_file(self, file:File):
         legend_loc = (1, 0.95, 0.9)
         legend_index = 0
+
+        self.main_ax = self.fig.add_subplot()
+        plt.ylabel("电压(V)")
+        plt.xlabel("时间(s)")
+        plt.ylim(0, 3.5)
+        plt.xlim(0,60)
+
         time = list(file.file_dict['time'].values())
         if file.open_file_channel['tem_channel'] == True :
+            self.tem_ax = self.main_ax.twinx()
+            plt.ylabel("温度(℃)")
+            plt.ylim(-10,40)
+
             y_tem = list(file.file_dict['tem_channel'].values())
             self.tem_ax.plot(time, y_tem, color= 'r', label= '温度')
             self.tem_ax.legend(bbox_to_anchor=(1, legend_loc[legend_index]))
             legend_index += 1
         if file.open_file_channel['wet_channel'] == True :
+            self.wet_ax = self.main_ax.twinx()
+            plt.ylabel("湿度(%)")
+            plt.ylim(0,100)
+
             y_wet = list(file.file_dict['wet_channel'].values())
             self.wet_ax.plot(time, y_wet, color= 'g', label= '湿度')
             self.wet_ax.legend(bbox_to_anchor=(1, legend_loc[legend_index]))
