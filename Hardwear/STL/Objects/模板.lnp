@@ -30,7 +30,9 @@
 ".\objects\dht11.o"
 ".\objects\oled.o"
 ".\objects\jq01.o"
+".\objects\prc905.o"
 ".\objects\delay.o"
+".\objects\timer.o"
 --strict --scatter ".\Objects\Ä£°å.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

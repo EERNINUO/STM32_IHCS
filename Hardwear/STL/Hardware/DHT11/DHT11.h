@@ -12,6 +12,7 @@ extern "C"{
 #include "Serious.h"
 
 void DHT11_Init(void);
+void DHT11_read(uint8_t* dat_arr);
 
 #ifdef __cplusplus
 }
